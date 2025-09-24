@@ -8,7 +8,7 @@ RandomIt lower_bound(RandomIt first, RandomIt last, const T& value)
     RandomIt it;
     typename std::iterator_traits<RandomIt>::difference_type count, step;
     count = last - first;
-
+    
     while(count > 0) {
         step = count / 2;
         it = first + step;
@@ -17,7 +17,7 @@ RandomIt lower_bound(RandomIt first, RandomIt last, const T& value)
             count -= (step + 1);
         }
         else {
-            count  = step;
+            count = step;
         }
     }
     return first;
@@ -38,7 +38,7 @@ RandomIt upper_bound(RandomIt first, RandomIt last, const T& value)
             count -= (step + 1);
         }
         else {
-            count  = step;
+            count = step;
         }
     }
     return first;
