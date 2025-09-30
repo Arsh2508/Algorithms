@@ -31,7 +31,7 @@ void quick_sort(std::vector<T>& arr, int left, int right) {
 
 int main()
 {
-    std::vector<int> array = {3, 3, 3, 3, 3, 3, 3, 3, 3};
+    std::vector<int> array = {5, 2, 4, 1, 3, 9, 6, 7};
     quick_sort(array, 0, array.size() - 1);
 
     for(int i : array) {

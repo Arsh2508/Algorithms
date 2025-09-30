@@ -19,8 +19,6 @@ int partition(std::vector<T>& arr, int left, int right) {
 
     int pivot = left + (std::rand() % (right - left));
     
-    std::cout << pivot << std::endl;
-
     std::swap(arr[right], arr[pivot]);
     
     while(i <= j) {
