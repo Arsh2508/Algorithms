@@ -18,7 +18,7 @@ int partition(std::vector<T>& arr, int left, int right) {
         pivot = right;
     }
 
-    std::swap(arr[right], arr[pivot]);
+    std::swap(arr[j], arr[pivot]);
 
     while(i <= j) {
         while(arr[i] < arr[right]) ++i;
