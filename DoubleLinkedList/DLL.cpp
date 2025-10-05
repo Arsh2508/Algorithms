@@ -41,6 +41,7 @@ List<T>::~List()
         tmp = tmp->next;
         ::operator delete(del);
     }
+    size = 0;
 }
 
 template <typename T>
@@ -162,6 +163,8 @@ void List<T>::pop_back()
 
     tmp->data.~T();
     ::operator delete(tmp);
+
+    --size;
 }
 
 template <typename T>
@@ -183,6 +186,97 @@ void List<T>::pop_front()
 
     tmp->data.~T();
     ::operator delete(tmp);
+
+    --size;
 }
 
+template <typename T>
+void List<T>::insert(size_type pos, const_reference value)
+{
+    if(pos > size) throw std::out_of_range("Invalid position insertion");
+    
+    if(pos == 0) {
+        push_front(value);
+        return;
+    }
 
+    if(pos == size) {
+        push_back(value);
+        return;
+    }
+
+    Node<T> * tmp = head;
+
+    for(size_type i = 0; i < pos; ++i) {
+        tmp = tmp->next;
+    }
+
+    Node<T>* new_node = static_cast<Node<T>*>(::operator new(sizeof(Node<T>)));
+    
+    try {
+        new (&new_node->data) T(value);
+        new_node->prev = tmp->prev;
+        new_node->next = tmp;
+        new_node->prev->next = new_node;
+        tmp->prev = new_node;
+    }
+    catch(...)  {
+        ::operator delete(new_node);
+        throw;
+    }
+    ++size;
+}
+
+template <typename T>
+void List<T>::erase(size_type pos)
+{
+    if(pos >= size) throw std::out_of_range("Invalid position insertion");
+
+    if(pos == 0) {
+        pop_front();
+        return;
+    }
+    if(pos == size - 1) {
+        pop_back();
+        return;
+    }
+
+
+    Node<T> * tmp = head;
+
+    for(size_type i = 0; i < pos; ++i) {
+        tmp = tmp->next;
+    }
+
+    tmp->prev->next = tmp->next;
+    tmp->next->prev = tmp->prev;
+
+    tmp->data.~T();
+    ::operator delete(tmp);
+
+    --size;
+}
+
+template <typename T>
+Node<T>* List<T>::find(const_reference value)
+{
+    Node<T>* tmp = head;
+    while(tmp) {
+        if(tmp->data == value) return tmp;
+        tmp = tmp->next;
+    }
+    return nullptr;
+}
+
+template <typename T>
+void List<T>::print_list() const
+{
+    Node<T>* tmp = head;
+
+    while(tmp) {
+        std::cout << tmp->data << " ";
+        tmp = tmp->next;
+    }
+    std::cout << std::endl;
+
+}

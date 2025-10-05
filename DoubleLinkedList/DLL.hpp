@@ -41,8 +41,9 @@ public:
     void insert(size_type pos, const_reference value);
     void erase(size_type pos);
 
-    pointer find(const_reference value);
+    Node<T>* find(const_reference value);
 
+    void print_list() const; 
 private:
     Node<T>* head;
     Node<T>* tail;
