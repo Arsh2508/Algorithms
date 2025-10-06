@@ -23,7 +23,6 @@ public:
     ~BinarySearchTree();
 
     void insert(const_reference value);
-    
     void remove(const_reference value);
     bool search(const_reference value);
     size_type getHight();
@@ -40,14 +39,13 @@ public:
     size_type size;
     
     Node<T>* dfs_insert(Node<T>* node, const_reference value);
+    Node<T>* dfs_remove(Node<T>* node, const_reference value);
     void dfs_print(Node<T>* node) const;
     void dfs_clear(Node<T>* node);
     bool dfs_search(Node<T>* node, const_reference value);
     size_type dfs_Hight(Node<T>* node);
-
-    Node<T>* dfs_Min(Node<T>* node);
 };
 
-#include "BinarySearchTree.cpp"
+#include "BinarySearchTree.ipp"
 #endif
 

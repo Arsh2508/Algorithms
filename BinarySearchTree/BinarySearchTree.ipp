@@ -32,6 +32,46 @@ Node<T> *BinarySearchTree<T>::dfs_insert(Node<T>* node, const_reference val)
 }
 
 template <typename T>
+void BinarySearchTree<T>::remove(const_reference value)
+{
+    root = dfs_remove(root, value);
+}
+
+template <typename T>
+Node<T>* BinarySearchTree<T>::dfs_remove(Node<T>* node, const_reference value)
+{
+    if(!node) return nullptr;
+
+    if(value > node->data) node->right = dfs_remove(node->right, value);
+
+    else if(value < node->data) node->left = dfs_remove(node->left, value);
+
+    else {
+        if(node->left && node->right) {
+            Node<T>* tmp = successor(node);
+            std::swap(tmp->data, node->data);
+            node->right = dfs_remove(node->right, value);
+        }
+        else if(node->right) {
+            Node<T>* tmp = node->right;
+            delete node;
+            return tmp;
+        }
+        else if(node->left) {
+            Node<T>* tmp = node->left;
+            delete node;
+            return tmp;
+        }
+        else {
+            delete node;
+            return nullptr;
+        }
+
+    }
+    return node;
+}
+
+template <typename T>
 bool BinarySearchTree<T>::search(const_reference value)
 {
     return dfs_search(root, value);
@@ -75,7 +115,7 @@ Node<T>* BinarySearchTree<T>::getMin()
     if(!root) return nullptr;
 
     Node<T>* tmp = root;
-    while(!tmp->left) {
+    while(tmp->left) {
         tmp = tmp->left;
     }
     return tmp;
@@ -87,12 +127,66 @@ Node<T>* BinarySearchTree<T>::getMax()
     if(!root) return nullptr;
 
     Node<T>* tmp = root;
-    while(!tmp->right) {
-        tmp = tmp->next;
+    while(tmp->right) {
+        tmp = tmp->right;
     }
     return tmp;
 }
 
+template <typename T>
+Node<T> *BinarySearchTree<T>::successor(Node<T> *node)
+{
+    if(!node) return nullptr;
+
+    if(node->right) {
+        Node<T>* tmp = node->right;
+        while(tmp->left) {
+            tmp = tmp->left;
+        }
+        return tmp;
+    }
+
+    Node<T>* res = nullptr;
+    Node<T>* tmp = root;
+
+    while(tmp && tmp != node) {
+        if(node->data < tmp->data) {
+            res = tmp;
+            tmp = tmp->left;
+        }
+        else {
+            tmp = tmp->right;
+        }
+    }
+    return res;
+}
+
+template <typename T>
+inline Node<T> *BinarySearchTree<T>::predecessor(Node<T> *node)
+{
+    if(!node) return nullptr;
+
+    if(node->left) {
+        Node<T>* tmp = node->left;
+        while(tmp->right) {
+            tmp = tmp->right;
+        }
+        return tmp;
+    }
+
+    Node<T>* res = nullptr;
+    Node<T>* tmp = root;
+    while(tmp && tmp != node) {
+        if(tmp->data > node->data) {
+            tmp = tmp->left;
+        }
+        else {
+            res = tmp;
+            tmp = tmp->right;
+        }
+    }
+    return res;
+}
 
 template <typename T>
 void BinarySearchTree<T>::print() const
