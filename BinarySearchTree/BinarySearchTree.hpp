@@ -33,7 +33,6 @@ public:
     Node<T>* predecessor(Node<T>* node);
     
     void print() const;
-    
     void clear();
     
     private:
@@ -43,6 +42,10 @@ public:
     Node<T>* dfs_insert(Node<T>* node, const_reference value);
     void dfs_print(Node<T>* node) const;
     void dfs_clear(Node<T>* node);
+    bool dfs_search(Node<T>* node, const_reference value);
+    size_type dfs_Hight(Node<T>* node);
+
+    Node<T>* dfs_Min(Node<T>* node);
 };
 
 #include "BinarySearchTree.cpp"
