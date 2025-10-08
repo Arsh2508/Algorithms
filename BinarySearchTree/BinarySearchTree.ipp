@@ -110,7 +110,7 @@ typename BinarySearchTree<T>::size_type BinarySearchTree<T>::dfs_Hight(Node<T> *
 
 
 template <typename T>
-Node<T>* BinarySearchTree<T>::getMin()
+Node<T>* BinarySearchTree<T>::getMin() const
 {
     if(!root) return nullptr;
 
@@ -122,7 +122,7 @@ Node<T>* BinarySearchTree<T>::getMin()
 }
 
 template <typename T>
-Node<T>* BinarySearchTree<T>::getMax()
+Node<T>* BinarySearchTree<T>::getMax() const
 {
     if(!root) return nullptr;
 
@@ -134,7 +134,7 @@ Node<T>* BinarySearchTree<T>::getMax()
 }
 
 template <typename T>
-Node<T> *BinarySearchTree<T>::successor(Node<T> *node)
+Node<T> *BinarySearchTree<T>::successor(Node<T> *node) const
 {
     if(!node) return nullptr;
 
@@ -162,7 +162,7 @@ Node<T> *BinarySearchTree<T>::successor(Node<T> *node)
 }
 
 template <typename T>
-inline Node<T> *BinarySearchTree<T>::predecessor(Node<T> *node)
+Node<T> *BinarySearchTree<T>::predecessor(Node<T> *node) const
 {
     if(!node) return nullptr;
 

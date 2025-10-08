@@ -26,10 +26,10 @@ public:
     void remove(const_reference value);
     bool search(const_reference value);
     size_type getHight();
-    Node<T>* getMin();
-    Node<T>* getMax();
-    Node<T>* successor(Node<T>* node);
-    Node<T>* predecessor(Node<T>* node);
+    Node<T>* getMin() const;
+    Node<T>* getMax() const;
+    Node<T>* successor(Node<T>* node) const;
+    Node<T>* predecessor(Node<T>* node) const;
     
     void print() const;
     void clear();

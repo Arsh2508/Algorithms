@@ -42,6 +42,7 @@ int main() {
     else
         std::cout << node->data << " has no predecessor\n";
 
+
     // ===== Tree height =====
     std::cout << "\nHeight of tree: " << bst.getHight() << "\n";
 
