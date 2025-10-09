@@ -9,7 +9,7 @@ AVL<T>::AVL()
 {}
 
 template <typename T>
-AVL<T>::AVL(std::initializer_list<T> init) {
+AVL<T>::AVL(std::initializer_list<T> init) : AVL() {
     for(auto &it : init) {
         insert(it);
     }
