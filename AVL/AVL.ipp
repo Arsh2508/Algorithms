@@ -44,20 +44,20 @@ Node<T>* AVL<T>::dfs_insert(Node<T> *node, const_reference value)
     
     if(bf < -1) {
         if(balance_factor(node->right) < 0) {
-            return right_rotate(node);
+            return left_rotate(node);
         }
         else{
-            node->right = left_rotate(node->right);
-            return right_rotate(node);
+            node->right = right_rotate(node->right);
+            return left_rotate(node);
         }
     }
     else if(bf > 1){
         if(balance_factor(node->left) > 0) {
-            return left_rotate(node);
+            return right_rotate(node);
         }
         else {
-            node->left = right_rotate(node->left);
-            return left_rotate(node);
+            node->left = left_rotate(node->left);
+            return right_rotate(node);
         }
     }
     else {
@@ -108,21 +108,21 @@ Node<T>* AVL<T>::dfs_remove(Node<T>* node, const_reference value)
     int bf = balance_factor(node);
     
     if(bf < -1) {
-        if(balance_factor(node->right) < 0) {
-            return right_rotate(node);
+        if(balance_factor(node->right) <= 0) {
+            return left_rotate(node);
         }
         else{
-            node->right = left_rotate(node->right);
-            return right_rotate(node);
+            node->right = right_rotate(node->right);
+            return left_rotate(node);
         }
     }
     else if(bf > 1){
-        if(balance_factor(node->left) > 0) {
-            return left_rotate(node);
+        if(balance_factor(node->left) >= 0) {
+            return right_rotate(node);
         }
         else {
-            node->left = right_rotate(node->left);
-            return left_rotate(node);
+            node->left = left_rotate(node->left);
+            return right_rotate(node);
         }
     }
     else {
@@ -248,7 +248,7 @@ typename AVL<T>::size_type AVL<T>::dfsHight(Node<T> *node)
 }
 
 template <typename T>
-Node<T>* AVL<T>::left_rotate(Node<T> *x)
+Node<T>* AVL<T>::right_rotate(Node<T> *x)
 {
     Node<T>* y = x->left;
     Node<T>* T2 = y->right;
@@ -259,7 +259,7 @@ Node<T>* AVL<T>::left_rotate(Node<T> *x)
 }
 
 template <typename T>
-Node<T>* AVL<T>::right_rotate(Node<T> *x)
+Node<T>* AVL<T>::left_rotate(Node<T> *x)
 {
     Node<T>* y = x->right;
     Node<T>* T2 = y->left;
